@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<object>
+	<hidden manager="plone.belowcontent" skinname="*">
+	    <!-- unhide default comments viewlet -->
+	    <viewlet name="plone.comments" purge="True" />
+        <viewlet name="collective.intensedebate" />
+	</hidden>
+</object>

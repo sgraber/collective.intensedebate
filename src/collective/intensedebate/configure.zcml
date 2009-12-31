@@ -1,0 +1,30 @@
+<configure xmlns="http://namespaces.zope.org/zope"
+           xmlns:five="http://namespaces.zope.org/five"
+           xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+           i18n_domain="src.collective.intensedebate">
+
+    <five:registerPackage package="." initialize=".initialize" />
+
+	<!-- profiles -->
+	<genericsetup:registerProfile
+	    name="default"
+	    title="collective.intensedebate"
+	    directory="profiles/default"
+	    description="Extension profile for the collective.intensedebate extension."
+	    provides="Products.GenericSetup.interfaces.EXTENSION"
+	    for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+	    />
+
+    <genericsetup:registerProfile
+        name="uninstall"
+        title="collective.intensedebate uninstall"
+        directory="profiles/uninstall"
+        description="Uninstall profile for the collective.intensedebate extension."
+        provides="Products.GenericSetup.interfaces.EXTENSION"
+        for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+        />
+
+    <include package=".browser" />
+    <include package=".viewlets" />
+    
+</configure>

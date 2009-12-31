@@ -1,0 +1,7 @@
+<action-icons>
+    <action-icon category="controlpanel"
+                 action_id="IntenseDebateConfig"
+                 title="IntenseDebate comment system"
+                 priority="0"
+                 icon_expr="maintenance_icon.gif" />
+</action-icons>

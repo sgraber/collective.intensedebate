@@ -1,0 +1,12 @@
+<tal:block define="forum_id view/settings/forum_id"
+           condition="python: view.is_discussion_allowed and forum_id">
+
+<!-- IntenseDebate Comments - START -->
+<script tal:content="view/render_js_settings">
+	javascript will be rendered here from content.py
+</script>
+<span id="IDCommentsPostTitle" style="display:none"></span>
+<script type="text/javascript" src="http://www.intensedebate.com/js/genericCommentWrapperV2.js"></script>
+<!-- IntenseDebate Comments - END -->
+
+</tal:block>
