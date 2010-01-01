@@ -11,6 +11,9 @@ src/collective.intensedebate.egg-info/not-zip-safe
 src/collective.intensedebate.egg-info/requires.txt
 src/collective.intensedebate.egg-info/top_level.txt
 src/collective/intensedebate/__init__.py
+src/collective/intensedebate/idlatestcommentsportlet.py
+src/collective/intensedebate/idmostpopularportlet.py
+src/collective/intensedebate/idtopcommentersportlet.py
 src/collective/intensedebate/tests.py
 src/collective/intensedebate/browser/__init__.py
 src/collective/intensedebate/browser/configlet.py

@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<portlets>
+
+ <!-- Portlet type registrations -->
+
+ <portlet
+   addview="collective.intensedebate.IDLatestCommentsPortlet"
+   title="ID Latest Comments"
+   description="A portlet that displays the latest Intense Debate comments."
+   />
+
+ <portlet
+   addview="collective.intensedebate.IDMostPopularPortlet"
+   title="ID Most Popular"
+   description="A portlet that displays the most commented on articles/posts by Intense Debate commenters."
+   />
+
+ <portlet
+   addview="collective.intensedebate.IDTopCommentersPortlet"
+   title="ID Top Commenters"
+   description="A portlet that displays the most commented on articles/posts by Intense Debate commenters."
+   />
+   
+</portlets>

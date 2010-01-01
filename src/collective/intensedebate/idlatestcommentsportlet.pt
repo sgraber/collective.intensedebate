@@ -1,0 +1,25 @@
+<dl id="portlet-idlatestcomments"
+	class="portlet portletIDLatestCommentsPortlet"
+    i18n:domain="collective.intensedebate">
+
+    <dt class="portletHeader">
+        <span class="portletTopLeft"></span>
+            <tal:title tal:replace="view/Title" />
+        <span class="portletTopRight"></span>
+    </dt>
+
+    <dd class="portletItem odd">
+    
+        <script type="text/javascript"
+                src="http://www.intensedebate.com/widgets/acctComment/98014/5" 
+                defer="defer" ></script>
+
+    </dd>
+
+    <dd class="portletFooter">
+        <span class="portletBottomLeft"></span>
+        <span class="portletBottomRight"></span>
+    </dd>
+
+</dl>
+

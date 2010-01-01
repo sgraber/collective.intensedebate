@@ -1,11 +1,12 @@
-<configure xmlns="http://namespaces.zope.org/zope"
-           xmlns:five="http://namespaces.zope.org/five"
-           xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
-           i18n_domain="src.collective.intensedebate">
+<configure 
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:five="http://namespaces.zope.org/five"
+    xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+    xmlns:plone="http://namespaces.plone.org/plone"
+    i18n_domain="collective.intensedebate">
 
     <five:registerPackage package="." initialize=".initialize" />
 
-	<!-- profiles -->
 	<genericsetup:registerProfile
 	    name="default"
 	    title="collective.intensedebate"
@@ -24,6 +25,36 @@
         for="Products.CMFPlone.interfaces.IPloneSiteRoot"
         />
 
+    <plone:portlet
+        name="collective.intensedebate.IDLatestCommentsPortlet"
+        interface=".idlatestcommentsportlet.IIDLatestCommentsPortlet"
+        assignment=".idlatestcommentsportlet.Assignment"
+        view_permission="zope2.View"
+        edit_permission="cmf.ManagePortal"
+        renderer=".idlatestcommentsportlet.Renderer"
+        addview=".idlatestcommentsportlet.AddForm"
+        />
+
+    <plone:portlet
+        name="collective.intensedebate.IDMostPopularPortlet"
+        interface=".idmostpopularportlet.IIDMostPopularPortlet"
+        assignment=".idmostpopularportlet.Assignment"
+        view_permission="zope2.View"
+        edit_permission="cmf.ManagePortal"
+        renderer=".idmostpopularportlet.Renderer"
+        addview=".idmostpopularportlet.AddForm"
+        />
+        
+    <plone:portlet
+        name="collective.intensedebate.IDTopCommentersPortlet"
+        interface=".idtopcommentersportlet.IIDTopCommentersPortlet"
+        assignment=".idtopcommentersportlet.Assignment"
+        view_permission="zope2.View"
+        edit_permission="cmf.ManagePortal"
+        renderer=".idtopcommentersportlet.Renderer"
+        addview=".idtopcommentersportlet.AddForm"
+        />
+        
     <include package=".browser" />
     <include package=".viewlets" />
     
