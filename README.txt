@@ -101,13 +101,15 @@ Contributors
 To Do
 =====
 
-X Hide Plone comments viewlet properly.
-X Uninstall the IntenseDebate viewlet and re-enable Plone comments viewlet.
-O Uninstall the IntenseDebate configlet properly.
-X Replace portlet code so that it's configurable from the control panel 
-configlet. 12/31/09
-O Make each portlet configurable from @@manage-portlets
+X  Hide Plone comments viewlet properly. 01/01/10
+X  Uninstall the IntenseDebate viewlet and re-enable Plone comments viewlet. 01/01/10
+X  Uninstall the IntenseDebate configlet properly. 01/01/10
+X  Replace portlet code so that it's configurable from the control panel configlet. 12/31/09
+O  Make each portlet configurable from @@manage-portlets. 
 
+
+Links
+=====
 
 .. _IntenseDebate: http://intensedebate.com/home
 .. _Plone: http://plone.org
