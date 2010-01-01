@@ -105,7 +105,7 @@ X  Hide Plone comments viewlet properly. 01/01/10
 X  Uninstall the IntenseDebate viewlet and re-enable Plone comments viewlet. 01/01/10
 X  Uninstall the IntenseDebate configlet properly. 01/01/10
 X  Replace portlet code so that it's configurable from the control panel configlet. 12/31/09
-O  Make each portlet configurable from @@manage-portlets. 
+O  Make each portlet configurable from @@manage-portlets.  # Module collective.intensedebate.idlatestcommentsportlet, line 95, in num AttributeError: num_to_display
 
 
 Links

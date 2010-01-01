@@ -7,14 +7,14 @@
 
     <five:registerPackage package="." initialize=".initialize" />
 
-	<genericsetup:registerProfile
-	    name="default"
-	    title="collective.intensedebate"
-	    directory="profiles/default"
-	    description="Extension profile for the collective.intensedebate extension."
-	    provides="Products.GenericSetup.interfaces.EXTENSION"
-	    for="Products.CMFPlone.interfaces.IPloneSiteRoot"
-	    />
+    <genericsetup:registerProfile
+        name="default"
+        title="collective.intensedebate"
+        directory="profiles/default"
+        description="Extension profile for the collective.intensedebate extension."
+        provides="Products.GenericSetup.interfaces.EXTENSION"
+        for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+        />
 
     <genericsetup:registerProfile
         name="uninstall"
