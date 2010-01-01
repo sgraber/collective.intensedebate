@@ -3,16 +3,6 @@ Introduction
 
 This product integrates the 'IntenseDebate'_ commenting system into 'Plone'_.
 
-NOTE: This is a work-in-progress and currently isn't ready for production use.
-Current problems are:
-
-* doesn't hide the plone comments view properly
-* doesn't uninstall the configlet properly - you can still get to
-@@intensedebate-controlpanel even after uninstalling the configlet
-* doesn't uninstall the intensedebate views
-
-
-
 Plone's default commenting system is basic and sometimes leaves people wanting
 more features.  In Plone, it's hard to find new comments, administer comments,
 and block unwanted text or users.  This package, collective.intensedebate, 
@@ -105,7 +95,7 @@ X  Hide Plone comments viewlet properly. 01/01/10
 X  Uninstall the IntenseDebate viewlet and re-enable Plone comments viewlet. 01/01/10
 X  Uninstall the IntenseDebate configlet properly. 01/01/10
 X  Replace portlet code so that it's configurable from the control panel configlet. 12/31/09
-O  Make each portlet configurable from @@manage-portlets.  # Module collective.intensedebate.idlatestcommentsportlet, line 95, in num AttributeError: num_to_display
+X  Make each portlet configurable from @@manage-portlets. 01/01/10
 
 
 Links
