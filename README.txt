@@ -67,6 +67,14 @@ Installation on your Plone site is pretty straight forward:
 4. Inside your Plone site, use *Add products* in *Site Setup* or 
 *QuickInstaller* to activate it.
 
+The installer will replace Plone's commenting viewlet with a viewlet of its
+own.  The product also ships with three IntenseDebate portlets that you can
+use to show commenting statistics:
+
+* A list of your top commenters
+* Your most popular / commented on content
+* The latest comments for your site
+
 
 Configuration
 =============
@@ -80,6 +88,8 @@ is handled from the 'IntenseDebate'_ website and not from inside Plone.
 IntenseDebate comments should be visible in all content that has commenting
 enabled within Plone.
 
+For portlets, simply install them like you would for a normal portlet.
+
 
 Contributors
 ============
@@ -87,6 +97,15 @@ Contributors
 * Project initiated by Shane Graber
 * Code heavily borrowed from 'Wojciech Lichota'_ and 'collective.disqus'_
 
+
+To Do
+=====
+
+O Hide Plone comments viewlet properly.
+O Uninstall the IntenseDebate viewlet and re-enable Plone comments viewlet.
+O Uninstall the IntenseDebate configlet properly.
+O Replace portlet code so that it's configurable from the control panel 
+configlet.
 
 
 .. _IntenseDebate: http://intensedebate.com/home
