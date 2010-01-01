@@ -92,9 +92,9 @@ class Renderer(base.Renderer):
 
     def num(self):
         """Number of comments to display"""
-        num = self.num_to_display # for some reason this is returning an AssertionError
+        num = self.num_to_display # for some reason this is returning an AttributeError
         return str(num)  # has to be a string!!!
-        
+        # Module collective.intensedebate.idlatestcommentsportlet, line 95, in num AttributeError: num_to_display
 
 class AddForm(base.AddForm):
     """Portlet add form.

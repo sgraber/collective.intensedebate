@@ -33,6 +33,7 @@
         edit_permission="cmf.ManagePortal"
         renderer=".idlatestcommentsportlet.Renderer"
         addview=".idlatestcommentsportlet.AddForm"
+        editview=".idlatestcommentsportlet.EditForm"
         />
 
     <plone:portlet
