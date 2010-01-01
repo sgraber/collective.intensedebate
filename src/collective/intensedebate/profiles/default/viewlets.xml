@@ -1,6 +1,7 @@
 <?xml version="1.0"?>
 <object>
 	<hidden manager="plone.belowcontent" skinname="*">
-        <viewlet name="plone.comments" />
+        <viewlet name="plone.comments" /> <!-- hide/remove default comments viewlet -->
+        <viewlet name="collective.intensedebate" remove="True" /> <!-- unhide id comments viewlet -->
 	</hidden>
 </object>
