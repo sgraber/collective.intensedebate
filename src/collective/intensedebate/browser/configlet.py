@@ -20,12 +20,6 @@ class IIntenseDebateSettings(Interface):
         description = _(u"This string is used to uniquely identify your website for Intense Debate. It typically looks like 'f4e4d39dhdl756bcd98refbl321fl8ar'. Copy that string and paste it in the field below. You need to enter this ID before you begin using IntenseDebate on your website."),
         required = False
         )
-    
-    account_id = Int(
-        title = _(u"Your Intense Debate's Widget comments account number"),
-        description = _(u"This number is used to uniquely identify your comments information from Intense Debate and it's different than your idcomments_acct number from above. You can find it within the Widgets section on Intense Debate's website.  It appears right after the /acctComments/ in the javascript that you'd copy to your blog go show a widget."),
-        required = False
-        )
 
 
 class IntenseDebateControlPanel(ControlPanelForm):
@@ -45,5 +39,4 @@ class IntenseDebateControlPanelAdapter(SchemaAdapterBase):
     implements(IIntenseDebateSettings)
     
     forum_id = ProxyFieldProperty(IIntenseDebateSettings['forum_id'])
-    account_id = ProxyFieldProperty(IIntenseDebateSettings['account_id'])
     

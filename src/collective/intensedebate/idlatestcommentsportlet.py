@@ -12,7 +12,6 @@ from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from Acquisition import aq_inner
 from zope.component import getMultiAdapter
 from Products.CMFCore.utils import getToolByName
-from collective.intensedebate.browser.configlet import IIntenseDebateSettings
 
 
 _ = MessageFactory('collective.intensedebate')
@@ -39,11 +38,18 @@ class IIDLatestCommentsPortlet(IPortletDataProvider):
     #                              description=_(u"A field to use"),
     #                              required=True)
 
+    account_id = schema.Int(
+        title = _(u"Your Intense Debate's Widget comments account number"),
+        description = _(u"This number is used to uniquely identify your comments information from Intense Debate and it's different than your idcomments_acct number from above. You can find it within the Widgets section on Intense Debate's website.  It appears right after the /acctComments/ in the javascript that you'd copy to your blog go show a widget."),
+        required = True
+        )
+        
     num_to_display = schema.Int(title = (u"Number of Intense Debate Comments to Display"),
-                               description = (u"Enter the number of comments to display in the portlet when its rendered. "
-                            		"The portle defaults to '5', which is the same as the default on Intense Debate. "),
+                                description = (u"Enter the number of comments to display in the portlet when its rendered."
+                            		" The portle defaults to '5', which is the same as the default on Intense Debate. "),
                                 required = True,
                                 default = 5)
+
 
 class Assignment(base.Assignment):
     """Portlet assignment.
@@ -54,9 +60,11 @@ class Assignment(base.Assignment):
     
     implements(IIDLatestCommentsPortlet)
     
+    account_id = '' # the intense debate widget acct number
     num_to_display = 5 # number comments to initially display
     
-    def __init__(self, num_to_display=5):
+    def __init__(self, account_id='', num_to_display=5):
+        self.account_id = account_id
         self.num_to_display = num_to_display
 
     @property
@@ -82,19 +90,20 @@ class Renderer(base.Renderer):
         base.Renderer.__init__(self, *args)
         context = aq_inner(self.context)
 
+    @property
     def account_id(self):
         """Get the Intense Debate Account ID from the Portal Configlet"""
-        portal_url = getToolByName(self.context, 'portal_url')
-        portal = portal_url.getPortalObject()
-        self.settings = IIntenseDebateSettings(portal)
-        account_id = self.settings.account_id
-        return account_id
+        data = self.data
+        account_id = data.account_id
+        return str(account_id) # has to be a string!!!
 
+    @property
     def num(self):
         """Number of comments to display"""
-        num = self.num_to_display # for some reason this is returning an AttributeError
+        data = self.data
+        num = data.num_to_display 
         return str(num)  # has to be a string!!!
-        # Module collective.intensedebate.idlatestcommentsportlet, line 95, in num AttributeError: num_to_display
+        
 
 class AddForm(base.AddForm):
     """Portlet add form.
