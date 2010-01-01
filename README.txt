@@ -91,6 +91,7 @@ Contributors
 To Do
 =====
 
+O  Add a view to Collections view for showing comment stats - something like "Comments: ##"
 X  Hide Plone comments viewlet properly. 01/01/10
 X  Uninstall the IntenseDebate viewlet and re-enable Plone comments viewlet. 01/01/10
 X  Uninstall the IntenseDebate configlet properly. 01/01/10
