@@ -1,6 +1,8 @@
 <dl id="portlet-idlatestcomments"
 	class="portlet portletIDLatestCommentsPortlet"
-    i18n:domain="collective.intensedebate">
+    i18n:domain="collective.intensedebate"
+    tal:define="account_id view/account_id;
+                num view/num;">
 
     <dt class="portletHeader">
         <span class="portletTopLeft"></span>
@@ -11,9 +13,11 @@
     <dd class="portletItem odd">
     
         <script type="text/javascript"
-                src="http://www.intensedebate.com/widgets/acctComment/ID/5" 
-                tal:attributes="src string:http://www.intensedebate.com/widgets/acctComment/${view/account_id}/5"
+                src="http://www.intensedebate.com/widgets/acctComment/ID/NUM" 
+                tal:attributes="src string:http://www.intensedebate.com/widgets/acctComment/${account_id}/${num}"
                 defer="defer" ></script>
+                
+        <p tal:replace="string: ${num}">method</p>
 
     </dd>
 
