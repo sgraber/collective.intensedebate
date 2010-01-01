@@ -2,17 +2,17 @@
 <object name="portal_controlpanel" 
         meta_type="Plone Control Panel Tool"
         xmlns:i18n="http://xml.zope.org/namespaces/i18n" 
-		i18n:domain="collective.intensedebate">
+        i18n:domain="collective.intensedebate">
 
-	<configlet title="IntenseDebate comment system" 
-	           action_id="IntenseDebateConfig"
-			   appId="collective.intensedebate"
-	           category="Products"
-			   condition_expr=""
-	           url_expr="string:${portal_url}/@@intensedebate-controlpanel"
-	           icon_expr="string:${portal_url}/maintenance_icon.gif"
-			   visible="True"
-	           i18n:attributes="title">
-	    <permission>Manage portal</permission>
-	</configlet>
+    <configlet title="IntenseDebate comment system" 
+               action_id="IntenseDebateConfig"
+               appId="collective.intensedebate"
+               category="Products"
+               condition_expr=""
+               url_expr="string:${portal_url}/@@intensedebate-controlpanel"
+               icon_expr="string:${portal_url}/maintenance_icon.gif"
+               visible="True"
+               i18n:attributes="title">
+        <permission>Manage portal</permission>
+    </configlet>
 </object>
