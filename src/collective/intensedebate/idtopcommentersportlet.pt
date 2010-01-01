@@ -1,6 +1,8 @@
 <dl id="portlet-idtopcommenters"
 	class="portlet portletIDTopCommentersPortlet"
-    i18n:domain="collective.intensedebate">
+    i18n:domain="collective.intensedebate"
+    tal:define="account_id view/account_id;
+                num view/num;">
 
     <dt class="portletHeader">
         <span class="portletTopLeft"></span>
@@ -10,8 +12,8 @@
 
     <dd class="portletItem odd">
     
-        <script src="http://www.intensedebate.com/widgets/topCommenters/ID/10" 
-                tal:attributes="src string:http://www.intensedebate.com/widgets/topCommenters/${view/account_id}/10"
+        <script src="http://www.intensedebate.com/widgets/topCommenters/ID/NUM" 
+                tal:attributes="src string:http://www.intensedebate.com/widgets/topCommenters/${view/account_id}/${num}"
                 defer="defer" 
                 type="text/javascript"></script>
 

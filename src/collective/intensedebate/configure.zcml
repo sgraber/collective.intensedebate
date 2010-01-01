@@ -44,6 +44,7 @@
         edit_permission="cmf.ManagePortal"
         renderer=".idmostpopularportlet.Renderer"
         addview=".idmostpopularportlet.AddForm"
+        editview=".idmostpopularportlet.EditForm"
         />
         
     <plone:portlet
@@ -54,6 +55,7 @@
         edit_permission="cmf.ManagePortal"
         renderer=".idtopcommentersportlet.Renderer"
         addview=".idtopcommentersportlet.AddForm"
+        editview=".idtopcommentersportlet.EditForm"
         />
         
     <include package=".browser" />
