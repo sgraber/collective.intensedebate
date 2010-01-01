@@ -11,7 +11,8 @@
     <dd class="portletItem odd">
     
         <script type="text/javascript"
-                src="http://www.intensedebate.com/widgets/mostComments/98014/10" 
+                src="http://www.intensedebate.com/widgets/mostComments/ID/10" 
+                tal:attributes="src string:http://www.intensedebate.com/widgets/mostComments/${view/account_id}/10"
                 defer="defer"></script>
 
     </dd>

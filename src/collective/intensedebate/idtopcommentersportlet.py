@@ -12,6 +12,8 @@ from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from Acquisition import aq_inner
 from zope.component import getMultiAdapter
 from Products.CMFCore.utils import getToolByName
+from collective.intensedebate.browser.configlet import IIntenseDebateSettings
+
 
 _ = MessageFactory('collective.intensedebate')
 
@@ -61,12 +63,13 @@ class Renderer(base.Renderer):
 
         context = aq_inner(self.context)
 
-    def show(self):
-        """Only render if we're viewing a Smart Folder and that the 
-        current folder contains our cover image (cover.jpg) 
-        OR we're in the portal root viewing a Topic.
-        """
-        return 
+    def account_id(self):
+        """Get the Intense Debate Account ID from the Portal Configlet"""
+        portal_url = getToolByName(self.context, 'portal_url')
+        portal = portal_url.getPortalObject()
+        self.settings = IIntenseDebateSettings(portal)
+        account_id = self.settings.account_id
+        return account_id
 
 class AddForm(base.NullAddForm):
     """Portlet add form.

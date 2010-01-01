@@ -10,7 +10,8 @@
 
     <dd class="portletItem odd">
     
-        <script src="http://www.intensedebate.com/widgets/topCommenters/98014/10" 
+        <script src="http://www.intensedebate.com/widgets/topCommenters/ID/10" 
+                tal:attributes="src string:http://www.intensedebate.com/widgets/topCommenters/${view/account_id}/10"
                 defer="defer" 
                 type="text/javascript"></script>
 
