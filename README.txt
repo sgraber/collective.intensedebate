@@ -76,7 +76,8 @@ Current version of collective.intensedebate doesn't migrate comments. This
 is handled from the 'IntenseDebate'_ website and not from inside Plone.
 
 IntenseDebate comments should be visible in all content that has commenting
-enabled within Plone.
+enabled within Plone.  If you want to turn off commenting, adjust your portal
+settings accordingly.
 
 For portlets, simply install them like you would for a normal portlet.
 
