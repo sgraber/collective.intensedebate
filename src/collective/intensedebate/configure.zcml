@@ -1,11 +1,17 @@
 <configure 
     xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
     xmlns:five="http://namespaces.zope.org/five"
     xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
     xmlns:plone="http://namespaces.plone.org/plone"
     i18n_domain="collective.intensedebate">
 
     <five:registerPackage package="." initialize=".initialize" />
+
+    <include package="plone.app.contentmenu" />
+
+    <include file="skins.zcml" />
+    <include file="profiles.zcml" />
 
     <genericsetup:registerProfile
         name="default"
@@ -23,6 +29,28 @@
         description="Uninstall profile for the collective.intensedebate extension."
         provides="Products.GenericSetup.interfaces.EXTENSION"
         for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+        />
+
+    <browser:page
+        for="Products.ATContentTypes.interface.folder.IATFolder"
+        name="idcomments_view"
+        template="skins/customviews/idcomments_view.pt"
+        permission="zope.Public"
+        />
+
+    <browser:page
+        for="Products.ATContentTypes.interface.topic.IATTopic"
+        name="idcomments_view"
+        template="skins/customviews/idcomments_view.pt"
+        permission="zope.Public"
+        />
+
+    <browser:menuItem
+        for="collective.intensedebate.interfaces.IIDCommentsView"
+        menu="plone_displayviews"
+        title="ID Comments View"
+        action="idcomments_view"
+        description="Shows Intense Debate comments on Topics and Folders."
         />
 
     <plone:portlet

@@ -1,0 +1,460 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      lang="en"
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="plone">
+
+<body>
+
+	<!-- s3-slider js and css -->
+	<metal:css fill-slot="css_slot">
+	    <style type="text/css" media="all"
+	            tal:content="string: @import url($portal_url/s3-slider.min.css);"></style>
+	</metal:css>
+	<metal:javascript fill-slot="javascript_head_slot">
+		<script type="text/javascript"
+			    src="#"
+			    tal:attributes="src string:$portal_url/cufon-yui.js"></script>
+	    <script type="text/javascript"
+	            src="#"
+	            tal:attributes="src string:$portal_url/jquery.js"></script>
+	    <script type="text/javascript"
+	            src="#"
+	            tal:attributes="src string:$portal_url/Candara_400.font.js"></script>	    
+	    <script type="text/javascript"
+	            src="#"
+	            tal:attributes="src string:$portal_url/s3-slider.min.js"></script>
+		<script type="text/javascript" charset="utf-8">
+			Cufon.replace('h1, h2, .documentDescription, .summary');
+			$(document).ready(function(){
+				$('#slider').s3Slider({timeout:6000,fadeTime:500});
+			});
+		</script>
+	</metal:javascript>
+
+    <div metal:fill-slot="main">
+    <metal:main-macro define-macro="main"
+                      tal:define="kssClassesView context/@@kss_field_decorator_view;
+                                  getKssClasses nocall:kssClassesView/getKssClassesInlineEditable;
+                                  templateId template/getId">
+
+        <div tal:replace="structure provider:plone.abovecontenttitle" />
+
+        <h1 metal:use-macro="here/kss_generic_macros/macros/generic_title_view">
+            Title or id
+        </h1>
+
+        <div tal:replace="structure provider:plone.belowcontenttitle" />
+
+        <p metal:use-macro="here/kss_generic_macros/macros/generic_description_view">
+            Description
+        </p>
+
+        <div tal:replace="structure provider:plone.abovecontentbody" />
+
+        <div metal:define-macro="text-field-view"
+             id="parent-fieldname-text" class="stx"
+             tal:define="kss_class python:getKssClasses('text',
+                         templateId=templateId, macro='text-field-view');
+                         text here/aq_explicit/getText|nothing"
+             tal:condition="text"
+             tal:attributes="class python:test(here.Format() in ('text/structured',
+                                                   'text/x-rst', ), 'stx' + kss_class, 'plain' + kss_class)">
+            <div metal:define-slot="inside" tal:replace="structure text">The body</div>
+        </div>
+
+        <metal:listingmacro define-macro="listing">
+        <tal:foldercontents define="contentFilter contentFilter|request/contentFilter|nothing;
+                            limit_display limit_display|request/limit_display|nothing;
+                            more_url more_url|request/more_url|string:folder_contents;
+                            folderContents python:here.portal_type=='Topic' and here.queryCatalog(contentFilter, batch=True) or here.getFolderContents(contentFilter, batch=True, b_size=limit_display or 100);
+                            use_view_action site_properties/typesUseViewActionInListings|python:();
+                            over_limit python: limit_display and len(folderContents) > limit_display;
+                            folderContents python: (over_limit and folderContents[:limit_display]) or folderContents;
+                            batch folderContents;
+                            folderContentIds python: context.getParentNode().contentIds();
+                            ">
+        <tal:listing condition="folderContents">
+
+
+		<!-- Table of Contents Image -->
+        <div id="toc-header" 
+        	 align="center" 
+        	 tal:condition="python: 'toc' not in folderContentIds">
+            <img src="#" alt="Table of Contents" title="Table of Contents"
+                 tal:attributes="src string:$portal_url/tocview.jpg" />
+        </div>
+        <br />
+
+		<!-- TOC image fadein / fadeout section -->
+		<div id="slider"
+			 tal:condition="python: 'toc' in folderContentIds">
+			<tal:slider tal:define="images python: container.portal_catalog(portal_type='Image', path='/advancedaquarist/2008/toc');">
+			<div class="slide"
+				 tal:repeat="image images">
+				<img src="#"
+					 tal:attributes="src image/getURL" alt="" />
+				<span><strong tal:content="image/pretty_title_or_id">January 2008</strong>
+				<br/>
+				    <tal:desc tal:content="image/Description">Volume VI, Issue I</tal:desc>
+				</span>
+			</div>
+			</tal:slider>
+		</div>
+
+            <tal:block tal:repeat="item folderContents">
+                <div class="tileItem visualIEFloatFix vevent" 
+                     tal:define="item_url item/getURL|item/absolute_url;
+                                       item_id item/getId|item/id;
+                                       item_title_or_id item/pretty_title_or_id;
+                                       item_description item/Description;
+                                       item_type item/portal_type;
+                                       item_type_title item/Type;
+                                       item_type_class python: 'contenttype-' + normalizeString(item_type);
+                                       item_modified item/ModificationDate;
+                                       item_created item/CreationDate;
+                                       item_wf_state        item/review_state|python: wtool.getInfoFor(item, 'review_state', '');
+                                       item_wf_state_class python:'state-' + normalizeString(item_wf_state);
+                                       item_creator item/Creator;
+                                       item_start item/start/ISO|item/StartDate|nothing;
+                                       item_end item/end/ISO|item/EndDate|nothing;
+                                       item_object item/getObject;
+                                       item_parent_folder python: item_object.getParentNode().contentIds();
+                                       item_contributors item_object/Contributors|nothing;
+                                       item_photoalbum python: item_id + '_album';
+                                       item_toc_img_name python: item_id + '.jpg';
+                                       item_image python: item_url + '.jpg/image_thumb';
+                                   "
+                     tal:attributes="class string:tileItem visualIEFloatFix vevent ${item_type_class}">
+
+                    <a href="#"
+                       tal:condition="python:item_type != 'Link'"
+                       tal:attributes="href python:test(item_type in use_view_action, item_url+'/view', item_url);">
+                        <img src="" alt=""
+                             tal:condition="exists:item_object/image_thumb"
+                             tal:replace="structure python: path('nocall:item_object/tag')(scale='thumb', css_class='tileImage')" />
+                    </a>
+
+                    <a href="#"
+                       class="link-plain"
+                       tal:condition="python:item_type == 'Link'"
+                       tal:attributes="href item/getRemoteUrl">
+                        <img src="" alt=""
+                             tal:condition="exists:item_object/image_thumb"
+                             tal:replace="structure python: path('nocall:item_object/tag')(scale='thumb', css_class='tileImage')" />
+                    </a>
+
+					<div class="toc-item">
+					<!-- toc image -->
+					<div class="toc-image" style="float: left; margin-right: 10px; margin-bottom: 10px; margin-top: 10px;">
+	                    <a href="#"
+	                       tal:attributes="href python:test(item_type in use_view_action, item_url+'/view', item_url);"
+	                       tal:condition="python: item_toc_img_name in item_parent_folder">
+	                        <img src="#" 
+	                        	 style="border: 1px solid #8cacbb;"
+	                             tal:attributes="src item_image;
+	                                             alt item_title_or_id;
+	                                             title item_description;" />
+						</a>
+					</div>
+					
+					<!-- toc text (title, description, authors) -->
+					<div class="toc-text">
+	                    <h2 class="tileHeadline"
+	                        metal:define-macro="listitem">
+							
+	                        <a href="#"
+	                           class="summary url"
+	                           tal:condition="python:item_type != 'Link'"
+	                           tal:attributes="href python:test(item_type in use_view_action, item_url+'/view', item_url);"
+	                           tal:content="item_title_or_id">
+	                            Item Title
+	                        </a>
+	
+	                        <a href="#"
+	                           class="link-plain"
+	                           tal:condition="python:item_type == 'Link'"
+	                           tal:content="item_title_or_id"
+	                           tal:attributes="href item/getRemoteUrl;">
+	                            External Link
+	                        </a>
+	                    </h2>
+						
+	                    <!-- Our custom byline for Authors using the Contributors field on the content item -->
+	                    <div class="documentByLine" tal:condition="item_contributors">
+	                    	By 
+	                    	<span tal:content="python: ', '.join(item_contributors)">Article author names go here</span>
+	                    </div>
+	                    
+	                    <div class="documentByLine" tal:condition="python: site_properties.allowAnonymousViewAbout or not isAnon">
+	                    <tal:event condition="python: item_type == 'Event'">
+	                         <span tal:condition="python: item_type == 'Event'"
+	                               i18n:translate="label_event_byline">
+	                             (<span tal:content="string:${item/location}"
+	                                    class="location"
+	                                    i18n:name="location">Oslo</span><tal:comma
+	                                    tal:replace="string:, "
+	                                    tal:condition="item/location" />from
+	                              <abbr class="dtstart"
+	                                    tal:attributes="title python:item_start"
+	                                    tal:content="python:toLocalizedTime(item_start,long_format=1)"
+	                                    i18n:name="start">from date</abbr> to
+	                              <abbr class="dtend"
+	                                    tal:attributes="title python:item_end"
+	                                    tal:content="python:toLocalizedTime(item_end,long_format=1)"
+	                                    i18n:name="end">to date</abbr>)
+	                         </span>
+	                    </tal:event>
+	                    <tal:newsitem condition="python: item_type == 'News Item'">
+	                        <tal:name tal:condition="item_creator"
+	                            tal:define="author python:mtool.getMemberInfo(item_creator)">
+	                          <span i18n:translate="label_by_author">
+	                            by
+	                          <a href="#"
+	                             tal:attributes="href string:${portal_url}/author/${item_creator}"
+	                             tal:content="python:author and author['fullname'] or item_creator"
+	                             tal:omit-tag="not:author"
+	                             i18n:name="author">
+	                            Bob Dobalina
+	                          </a>
+	                          </span>
+	                        </tal:name>
+	                        &mdash;
+	                        <span tal:replace="python:toLocalizedTime(item_modified,long_format=1)">
+	                        August 16, 2001 at 23:35:59
+	                        </span>
+	                    </tal:newsitem>
+	                    </div>
+	
+	                    <p class="tileBody">
+	                        <span tal:omit-tag="" tal:condition="not:item_description">
+	                            &nbsp;
+	                        </span>
+	                        <span class="description" tal:content="item_description">
+	                            description
+	                        </span>
+	                    </p>
+	
+	                    <p class="tileFooter">
+	                        <a href=""
+	                           tal:attributes="href python:test(item_type in use_view_action, item_url+'/view', item_url);"
+	                           i18n:translate="read_more">
+	                        Read More&hellip;
+	                        </a>
+	                        <tal:album tal:condition="python: item_photoalbum in item_parent_folder">
+		                        <br />
+		                        <a href="#"
+		                           tal:attributes="href python:item_url + '_album'">
+		                        Photo Album&hellip;
+		                        </a>
+	                        </tal:album>
+	                    </p>
+	                    <div class="discreet" style="float:right;">
+	                        <img src="#" alt="comments" tal:attributes="src string:$portal_url/comments.jpg" />
+	                        <script tal:content="string: var idcomments_acct = 'e4e4e4a9d8ed15755bdc24e5fe4fb184';
+	                        	                         var idcomments_post_id = '$item_url';
+	                        	                         var idcomments_post_url = '$item_url';">
+							var idcomments_acct = 'e4e4e4a9d8ed15755bdc24e5fe4fb184';
+							var idcomments_post_id = '$item_url';
+							var idcomments_post_url = '$item_url';
+							</script>
+							<script type="text/javascript" src="http://www.intensedebate.com/js/genericLinkWrapperV2.js"></script>
+	                    </div>
+					</div>
+					</div>
+					
+                    <div class="visualClear"><!-- --></div>
+
+                </div>
+            </tal:block>
+
+			<!-- Reefkeeping Events -->
+			<div class="tileItem visualIEFloatFix vevent contenttype-document toc-item">
+				<div class="toc-image" style="float: left; margin-right: 10px; margin-bottom: 10px;margin-top:10px;">
+					<a href="#"
+					   tal:attributes="href string:$portal_url/events">
+						<img src="#" 
+							 style="border: 1px solid #8cacbb;"
+							 alt="Reefkeeping Events"
+							 tal:attributes="src string:$portal_url/tocevents.jpg" />
+					</a>
+				</div>
+				<div class="toc-text">
+			        <h2 class="tileHeadline">
+		                <a href="#"
+		                   class="summary url"
+		                   tal:attributes="href string:$portal_url/events">Reefkeeping Events: What&#39;s Happening in Your Area?</a>
+		            </h2>
+					<p class="tileBody">
+						<span class="description">Check to see if an event is happening in your area!
+						<img src="#" alt="RSS" tal:attributes="src string:$portal_url/rss.gif">
+						<a href="#"
+	                       tal:attributes="href string:$portal_url/events/aggregator/RSS">
+	                        RSS feed
+            			</a> available.
+						</span>
+					</p>
+	                <p class="tileFooter">
+	                    <a href=""
+	                       tal:attributes="href string:$portal_url/events"
+	                       i18n:translate="read_more">
+	                    Read More&hellip;
+	                    </a>
+	                    <br /><br />
+	                    <a href="mailto:feedback@advancedaquarist.com">Submit New Event</a>
+	                </p>
+            	</div>
+			</div>
+			<div class="visualClear"><!-- --></div>
+			
+			<!-- MarineNews -->
+			<div class="tileItem visualIEFloatFix vevent contenttype-document toc-item">
+				<div class="toc-image" style="float: left; margin-right: 10px; margin-bottom: 10px;margin-top:10px;">
+					<a href=""
+					   tal:attributes="href string:$portal_url/marinenews">
+						<img src="#" 
+							 style="border: 1px solid #8cacbb;"
+							 alt="Marine News"
+							 tal:attributes="src string:$portal_url/tocaaolm.jpg" />
+					</a>
+				</div>
+				<div class="toc-text">
+			        <h2 class="tileHeadline">
+		                <a href="#"
+		                   class="summary url"
+		                   tal:attributes="href string:$portal_url/marinenews">Reefs in the News</a>
+		            </h2>
+					<p class="tileBody">
+						<span class="description">Media coverage of the state of our world&#39;s reefs, interesting information, and other marine-related news.
+							<img src="#" alt="RSS" tal:attributes="src string:$portal_url/rss.gif">
+							<a href="#"
+		                       tal:attributes="href string:$portal_url/marinenews/aggregator/RSS">
+		                        RSS feed
+	            			</a> available.
+						</span>
+					</p>
+	                <p class="tileFooter">
+	                    <a href=""
+	                       tal:attributes="href string:$portal_url/marinenews"
+	                       i18n:translate="read_more">
+	                    Read More&hellip;
+	                    </a>
+	                </p>
+            	</div>
+			</div>
+			<div class="visualClear"><!-- --></div>
+            
+            <!-- Navigation -->
+            <div metal:use-macro="here/batch_macros/macros/navigation" />
+
+
+			<table align="center" class="toc-table">
+				<caption></caption>
+				<thead></thead>
+				<tfoot></tfoot>
+			 	<tbody>
+			 		<tr valign="top">
+			 			<td>
+			 				<h2>Feedback</h2>
+							 <p>We welcome your
+							 feedback. If you have ideas for new subjects, articles, or for
+							 Advanced Aquarist&#39;s Online Magazine in general, please let us know
+							 either in our <a href="http://www.reefs.org/phpBB2/viewforum.php?f=38">Editorial Discussion Forum</a>
+							 or email them to our Editor, <a href="mailto:terry@advancedaquarist.com?CC=liquid@reefs.org&Subject=Advanced%20Aquarist%20Feedback">Terry
+							 Siegel</a>.</p>
+						</td>
+			 			<td>
+			 				<h2>Subscribe</h2>
+							 <p>Interested in
+							 being notified when the next issue of Advanced Aquarist's Online
+							 Magazine is available?  Either subscribe to our website news <img src="rss.gif" alt="RSS" style="border:0" />
+							 <a href=""
+							    tal:attributes="href string:$portal_url/search_rss?portal_type=Document&review_state=published&sort_on=modified&sort_order=reverse">RSS feed</a>
+							 or send an email to <a href="mailto:reefs-newsletter-subscribe@reefs.org">reefs-newsletter-subscribe@reefs.org</a>
+							 to subscribe to our notification newsletter.</p>
+			 				<p class="discreet">(This newsletter will also occasionally contain information about reefs.org updates in addition
+			      			to information about Advanced Aquarist.)</p>
+			 
+			 			</td>
+			 			<td>
+			 				<h2>Advertising</h2>
+							 <p>For information
+							 on advertising with Advanced Aquarist's Online Magazine, please <a href="mailto:advertising@advancedaquarist.com?CC=len@reefs.org&Subject=Advertising%20in%20Advanced%20Aquarist%20">contact
+							 us</a> via the provided link. We have a variety of packages that
+							 might be suitable for your business.</p>
+						</td>
+			 		</tr>
+			 		<tr valign="top">
+			 			<td>
+			 				<h2>Support our Sponsors</h2>
+							 <p>Please take a
+							 moment to check out the 
+							 <a href=""
+							    tal:attributes="href string:$portal_url/moreinfo/sponsors"> various
+							 online stores</a> that advertise with us. It is through their generous
+							 sponsorship that this online magazine exists and is free of charge. </p>
+							 <p>Make
+							 sure that when you do business with our sponsors that you tell
+							 them that you saw their ad on Advanced Aquarist.</p>
+						</td>
+			 			<td>
+			 				<h2>Advanced Aquarist's Gear</h2>
+							 <p>Take a minute
+							 to head over to our <a href="http://www.cafeshops.com/advaquarist" target="_blank">online
+							 store at Cafepress</a>. You can deck yourself out in Advanced Aquarist's
+							 gear: t-shirts, mugs, mousepads, etc. Plus purchasing items helps
+							 fund our online magazine to a small degree.
+							</p>
+			
+						  	<p align="center">
+						    	<a href="http://www.cafeshops.com/advaquarist" target="_blank">
+						      	<img src="" 
+						           tal:attributes="src string:$portal_url/toccafepress.jpg" 
+						           border="0" 
+						           height="187" 
+						           width="172"
+						           alt="Advanced Aquarist's Store at CafePress"
+						           title="Advanced Aquarist's Store at CafePress" />
+						    	</a>
+						  	</p>
+						</td>
+						<td>
+						   	<h2>Article Submissions</h2>
+						   	<p>If you are an
+							 author and are interested in writing for Advanced Aquarist's Online
+							 Magazine, please email our Editor, <a href="mailto:terry@advancedaquarist.com">Terry
+							 Siegel</a>.</p>
+							 <p>Or, if you are
+							 interested in having your marine aquarium featured in an upcoming
+							 issue (who wouldn't?), please email <a href="mailto:wade@reefs.org">Wade
+							 Lehmann</a> for instructions on submitting your tank for publication.</p>
+						</td>
+			 		</tr>
+			 	</tbody>
+			</table>
+
+
+
+        </tal:listing>
+        <metal:empty metal:define-slot="no_items_in_listing">
+            <p class="discreet"
+               tal:condition="not: folderContents"
+               i18n:translate="description_no_items_in_folder">
+                There are currently no items in this folder.
+            </p>
+        </metal:empty>
+
+        </tal:foldercontents>
+        </metal:listingmacro>
+
+        <metal:subtopics use-macro="here/atct_topic_view/macros/folderlisting_macro" />
+
+        <div tal:replace="structure provider:plone.belowcontentbody" />
+
+    </metal:main-macro>
+    </div>
+
+</body>
+</html>

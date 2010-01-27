@@ -11,16 +11,6 @@ Description: Introduction
         
         This product integrates the 'IntenseDebate'_ commenting system into 'Plone'_.
         
-        NOTE: This is a work-in-progress and currently isn't ready for production use.
-        Current problems are:
-        
-        * doesn't hide the plone comments view properly
-        * doesn't uninstall the configlet properly - you can still get to
-        @@intensedebate-controlpanel even after uninstalling the configlet
-        * doesn't uninstall the intensedebate views
-        
-        
-        
         Plone's default commenting system is basic and sometimes leaves people wanting
         more features.  In Plone, it's hard to find new comments, administer comments,
         and block unwanted text or users.  This package, collective.intensedebate,
@@ -94,7 +84,8 @@ Description: Introduction
         is handled from the 'IntenseDebate'_ website and not from inside Plone.
         
         IntenseDebate comments should be visible in all content that has commenting
-        enabled within Plone.
+        enabled within Plone.  If you want to turn off commenting, adjust your portal
+        settings accordingly.
         
         For portlets, simply install them like you would for a normal portlet.
         
@@ -109,13 +100,16 @@ Description: Introduction
         To Do
         =====
         
-        O Hide Plone comments viewlet properly.
-        O Uninstall the IntenseDebate viewlet and re-enable Plone comments viewlet.
-        O Uninstall the IntenseDebate configlet properly.
-        X Replace portlet code so that it's configurable from the control panel
-        configlet. 12/31/09
-        O Make each portlet configurable from @@manage-portlets
+        O  Add a view to Collections view for showing comment stats - something like "Comments: ##"
+        X  Hide Plone comments viewlet properly. 01/01/10
+        X  Uninstall the IntenseDebate viewlet and re-enable Plone comments viewlet. 01/01/10
+        X  Uninstall the IntenseDebate configlet properly. 01/01/10
+        X  Replace portlet code so that it's configurable from the control panel configlet. 12/31/09
+        X  Make each portlet configurable from @@manage-portlets. 01/01/10
         
+        
+        Links
+        =====
         
         .. _IntenseDebate: http://intensedebate.com/home
         .. _Plone: http://plone.org

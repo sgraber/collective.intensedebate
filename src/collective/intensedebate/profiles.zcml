@@ -1,0 +1,23 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+    i18n_domain="collective.intensedebate">
+
+  <genericsetup:registerProfile
+      name="default"
+      title="Intense Debate Custom View"
+      directory="profiles/default"
+      description="Installs Intense Debate Smart Folder View."
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      />
+
+  <genericsetup:registerProfile
+      name="uninstall"
+      title="Intense Debate Custom View"
+      directory="profiles/uninstall"
+      description="Removes Intense Debate Smart Folder View."
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+      />
+
+</configure>
