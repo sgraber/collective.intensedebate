@@ -1,2 +1,0 @@
-setuptools
-z3c.autoinclude
