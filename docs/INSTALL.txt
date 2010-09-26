@@ -31,14 +31,6 @@ recipe to manage your project, you can do this:
         ...
         collective.intensedebate
 
-  * Tell the plone.recipe.zope2instance recipe to install a ZCML slug:
-
-    [instance]
-    recipe = plone.recipe.zope2instance
-    ...
-    zcml =
-        collective.intensedebate
-
   * Re-run buildout, e.g. with:
 
     $ ./bin/buildout
