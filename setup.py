@@ -7,7 +7,9 @@ setup(name = 'collective.intensedebate',
       version = version,
       description = "IntenseDebate for Plone",
       long_description = open("README.txt").read() + "\n" +
-                         open(os.path.join("docs", "HISTORY.txt")).read(),
+                       open(os.path.join("docs", "INSTALL.txt")).read()  + "\n" +
+                       open(os.path.join("docs", "LICENSE.txt")).read()  + "\n" +
+                       open(os.path.join("docs", "HISTORY.txt")).read(),
       # Get more strings from http://www.python.org/pypi?%3Aaction=list_classifiers
       classifiers = [
         "Framework :: Plone",
