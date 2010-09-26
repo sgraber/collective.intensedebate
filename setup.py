@@ -28,10 +28,11 @@ setup(name = 'collective.intensedebate',
       zip_safe = False,
       install_requires = [
           'setuptools',
-          'z3c.autoinclude',
           # -*- Extra requirements: -*-
       ],
       entry_points = """
+      # -*- Entry points: -*-
+
       [z3c.autoinclude.plugin]
       target = plone
       """,
